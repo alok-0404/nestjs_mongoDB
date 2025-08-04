@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose'; //injectmodel schema ko rejister krnwane ke liye hota h
 import { Student, studentDocument } from './student.scehma';
 import { Model } from 'mongoose';
+import { exec } from 'child_process';
 
 @Injectable()
 export class StudentService {
@@ -20,5 +21,9 @@ export class StudentService {
 
   async getStudentById(id: string): Promise<Student | null> {
     return this.studentModel.findById(id).exec();
+  }
+
+  async updateStudent(id: string,data: Partial<Student>): Promise<Student | null> {
+    return this.studentModel.findByIdAndUpdate(id, data, { new: true }).exec();
   }
 }

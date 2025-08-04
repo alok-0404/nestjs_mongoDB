@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { Student } from './student.scehma';
 
@@ -11,12 +11,20 @@ export class StudentController {
         return this.studentService.createStudent(data);
     }
     @Get('all')
-    getAllStudent(){
+     async getAllStudent(){
         return this.studentService.getAllStudents();
     }
 
     @Get(':id')
-   getStudentById(@Param('id') id: string) {    
+    async getStudentById(@Param('id') id: string) {    
    return this.studentService.getStudentById(id);
    }
+
+   @Put(':id')
+   async updateStudent(
+    @Param('id') id: string,
+    @Body() data: Partial<Student>
+   ){
+    return this.studentService.updateStudent(id, data);
+}
 }
