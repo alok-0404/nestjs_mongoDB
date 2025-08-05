@@ -36,4 +36,8 @@ export class StudentService {
     return updated;
     // return this.studentModel.findByIdAndUpdate(id, data, { new: true }).exec();
   }
+
+  async deletStudent(id: string): Promise<Student | null> {
+    return this.studentModel.findByIdAndDelete(id).exec();
+  }
 }
